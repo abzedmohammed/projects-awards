@@ -75,8 +75,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary',
-    'insta',
+    'awards',
     'bootstrap4',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
