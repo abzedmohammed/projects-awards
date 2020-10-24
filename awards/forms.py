@@ -13,3 +13,8 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('job_title','username', 'first_name', 'last_name', 'email', 'password1', 'password2') 
+        
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']

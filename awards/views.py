@@ -65,7 +65,7 @@ def profile_edit(request,username):
         else:
             form = EditProfileForm(instance=profile)
     legend = 'Edit Profile'
-    return render(request, 'profile/update.html', {'legend':legend, 'form':ProfileForm})
+    return render(request, 'profile/update.html', {'legend':legend, 'form':EditProfileForm})
  
 
 # @login_required
