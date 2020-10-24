@@ -59,3 +59,10 @@
   color: #111;
   text-align: center;
 }
+
+.box h2{
+  color: #111;
+  text-transform: uppercase;
+  font-weight: bolder;
+  text-align: center;
+}
