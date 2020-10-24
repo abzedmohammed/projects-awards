@@ -1,0 +1,1 @@
+web: gunicorn codeawards.wsgi --log-file -
