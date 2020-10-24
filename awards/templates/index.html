@@ -5,13 +5,56 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">  
+<link rel="stylesheet" href="{% static 'js/jquery.easypiechart.js' %}">  
 {% endblock  %}
   
 
 {% block content %} 
 
-<h1>Awwards</h1>
+<!-- Jumbotron -->
+<div class="card card-image" style="background-image: url('/static/img/code.jpg');">
+    <div class="text-white text-center rgba-stylish-strong py-5 px-4">
+      <div class="py-5">
+  
+        <!-- Content -->
+        <h5 class="h5 orange-text"><i class="fas fa-camera-retro"></i> Photography</h5>
+        <h2 class="card-title h2 my-4 py-2">Jumbotron with image overlay</h2>
+        <p class="mb-4 pb-2 px-md-5 mx-md-5 lead">This is a project that highlight reviews and likes nad ratings of projects submotted by users to make them feel good or miserable...</p>
+            
+        <div class="circle mt-5">
+            <div class="box">
+                <div class="chart" data-percent="73" data-scale-color="#ffb400">8.5</div>
+                <h3>Design</h3>
+            </div>
+            <div class="box">
+                <div class="chart" data-percent="40" data-scale-color="#ffb400">4.3</div>
+                <h3>Usability</h3>
+            </div>
+            <div class="box">
+                <div class="chart" data-percent="90" data-scale-color="#ffb400">9.0</div>
+                <h3>Content</h3>
+            </div>
+        </div> 
 
+            <div class="buttons">
+                <a class="white-text" href=""><i class="fas fa-chevron-circle-right fa-2x"></i></a>
+                <a class="white-text" href=""><i class="fas fa-chevron-circle-left fa-2x"></i></a>    
+            </div> 
+        
+  
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/static/js/jquery.easypiechart.js"></script>
+  <script>
+    $(function() {
+        $('.chart').easyPieChart({
+            //your options goes here
+        });
+    });
+</script>
     
 {% endblock %}
     
