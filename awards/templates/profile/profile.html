@@ -1,29 +1,128 @@
 {%include 'base.html'%}
+{% load static %}
+{% load cloudinary %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">  
+{% endblock  %}
 
 {% block content %}
 
 <div class="container-fluid">
-    <div class="social-box">
-        <div class="header bg-cyan fg-white">
-            <img src="images/shvarcenegger.jpg" class="avatar">
-            <div class="title">Arnold Shvarcenegger</div>
-            <div class="subtitle">Terminator</div>
+    <div class="card-container">
+        <img class="round img-fluid rounded-circle" src="/static/img/stoned.jpg" alt="user" />
+        <h2>Ricky Park</h2>
+        <h6><i class="fas fa-map-marker-alt">  New York</i></h6>
+        <p>User interface designer and <br/> front-end developer</p>
+        <div class="contact">
+            <h3 style="text-decoration: underline;">Contacts</h3>
+            <a class="btn btn-outline-default btn-rounded waves-effect"><i class="fas fa-envelope">  ibraabzed@gmail.com</i></a>
+            <a type="button" class="btn btn-outline-default btn-rounded waves-effect"><i class="fas fa-phone">  0759507042</i></a>
+            <div class="social mt-3 mb-3">
+                <a class="btn-lg btn-whatsapp" type="button" role="button"><i class="fab fa-whatsapp fa-2x" style="color: #128C7E;"></i></a>
+                <a class="btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f fa-2x" style="color: #4267B2;"></i></a>
+                <a class="btn-lg btn-li" type="button" role="button"><i class="fab fa-linkedin-in fa-2x" style="color: dodgerblue;"></i></a>
+                <a class="btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter fa-2x" style="color: #00acee;"></i></a>
+                <a class="btn-lg btn-git" type="button" role="button"><i class="fab fa-github fa-2x" style="color: black;"></i></a>
+            </div>
         </div>
-        <ul class="skills">
-            <li>
-                <div class="text-bold">6</div>
-                <div>AWARDS</div>
-            </li>
-            <li>
-                <div class="text-bold">4</div>
-                <div>NOMINATIONS</div>
-            </li>
-            <li>
-                <div class="text-bold">36</div>
-                <div>FILMS</div>
-            </li>
-        </ul>
+        <div class="buttons">
+            <div class="bio mt-2">
+                <h4>Bio...</h4>
+                <p class="lead">This is my bio.... read at your own risk</p>
+            </div>
+        </div>
+        <div class="skills">
+            <h4 style="text-decoration: underline;">Skills</h5>
+            <ul class="lead">
+                <li>UI / UX</li>
+                <li>Front End Development</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Node</li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <button class="primary">
+                Edit Profile
+            </button>
+            <button class="primary ghost">
+                Follow
+            </button>
+        </div>
     </div>
+    <hr>
+<div class="container">
+    <h2 style="text-decoration: underline;" class="text-center">Projects</h2>
+    <div class="row">
+    </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-lg-4">
+          <div class="card">
+              <div class="card-header">
+                  <div class="date font-weight-bold">Monday at 3:47 PM</div>
+              </div>
+              <div class="card-content">
+                  <img src="/static/img/stoned.jpg" style="width: 100%">
+              </div>
+              <div class="card-content p-2">
+                  <span><small>Likes: </small>112</span>
+                  <span><small>Comments: </small>43</span>
+              </div>
+              <div class="card-footer">
+                  <button class="flat-button mif-thumbs-up mif-2x"></button>
+                  <button class="flat-button mif-tag mif-2x"></button>
+                  <button class="flat-button mif-share mif-2x"></button>
+              </div>
+          </div>
+        </div>
+    <div class="col-md-4 col-sm-4 col-lg-4">
+      <div class="card">
+          <div class="card-header">
+              <div class="date">Monday at 3:47 PM</div>
+          </div>
+          <div class="card-content">
+              <img src="/static/img/ich.jpg" style="width: 100%">
+          </div>
+          <div class="card-content p-2">
+              <span><small>Likes: </small>112</span>
+              <span><small>Comments: </small>43</span>
+          </div>
+          <div class="card-footer">
+              <button class="flat-button mif-thumbs-up mif-2x"></button>
+              <button class="flat-button mif-tag mif-2x"></button>
+              <button class="flat-button mif-share mif-2x"></button>
+          </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 col-sm-4 col-lg-4">
+      <div class="card">
+          <div class="card-header">
+              <div class="date">Monday at 3:47 PM</div>
+          </div>
+          
+          <div class="card-content">
+              <img src="/static/img/sana.jpg" style="width: 100%">
+          </div>
+          <div class="card-content p-2">
+              <span><small>Likes: </small>112</span>
+              <span><small>Comments: </small>43</span>
+          </div>
+          <div class="card-footer">
+              <button class="flat-button mif-thumbs-up mif-2x"></button>
+              <button class="flat-button mif-tag mif-2x"></button>
+              <button class="flat-button mif-share mif-2x"></button>
+          </div>
+      </div>
+    </div>
+    
+    </div>
+
+</div>
 </div>
   
 {% endblock  %}
