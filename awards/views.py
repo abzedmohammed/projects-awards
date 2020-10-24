@@ -106,6 +106,23 @@ def profile(request, username):
     return render(request,'profile/profile.html', {'user':user, 'profile':profile, 'posts':posts, 'post_count':post_count, 
                                                    'follower_count':follower_count, 'following_count':following_count,'follow_status':follow_status})
 
+@login_required
+def post_project(request):
+    userX = request.user
+    user = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.profile = user
+            data.user = userX
+            data.save()
+            return redirect('/')
+        else:
+            return False
+    
+    return render(request, 'add_image.html', {'form':ProjectForm,})
+
 
 # @login_required
 # def search_results(request):
