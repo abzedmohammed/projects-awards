@@ -17,13 +17,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 
-
+@login_required
 def index(request):
     return render(request, 'index.html')
-
+@login_required
 def single_project(request):
     return render(request, 'awards.html')
-
+@login_required
 def profile(request):
     return render(request, 'profile/profile.html')
 
@@ -42,3 +42,18 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect(request,'/')
+    
+    return render(request, '/django_registration/login.html')
+
+@login_required
+def logout(request):
+    django_logout(request)
+    return  HttpResponseRedirect('/')
