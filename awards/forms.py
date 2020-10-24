@@ -7,6 +7,7 @@ from .models import *
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
+    job_title = forms.CharField(max_length=200, required=True)
     email = forms.EmailField(max_length=254, help_text='Required. Input a valid email address.')
 
     class Meta:
