@@ -63,7 +63,11 @@ class Project(models.Model):
         return posts
         
     def delete_image(self):
-        self.delete()    
+        self.delete()  
+        
+class Screenshot(models.Model):
+    project = models.ForeignKey(Project, default=None, on_delete=models.CASCADE)
+    images = models.FileField(upload_to=user_directory_path, verbose_name='Pics', null=True)  
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
