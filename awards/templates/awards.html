@@ -78,11 +78,11 @@
         <li class="nav-item text-white font-weight-bold">
           <h4><a class="nav-link active" href="#"><i class="fas fa-poll-h">  Ratings</i></a></h4>
         </li>
-        <li class="nav-item text-white font-weight-bold">
-            <h4 style="text-decoration: underline;"><a class="nav-link" href="#"><i class="fas fa-comment-alt">  Reviews</i></a></h4>
+        <li class="nav-item text-black hoverable font-weight-bold">
+            <h4 id="reviews" style="text-decoration: underline;"><a class="nav-link"><i class="fas fa-comment-alt">  Reviews</i></a></h4>
         </li>
-        <li class="nav-item text-white font-weight-bold">
-            <h4><a class="nav-link" href="#"><i class="fas fa-users">  Users</i></a></h4>
+        <li class="nav-item text-black hoverable font-weight-bold">
+            <h4><a class="nav-link"><i class="fas fa-users">  Users</i></a></h4>
         </li>
       </ul>
       <div class="skill-box">
@@ -234,18 +234,13 @@
           </div>
 </div>
 </div>
+
+<h3 id="user_reviews" class="mt-5 mb-3" style="text-decoration: underline;">User Reviews</h3>
 <div class="media">
     <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
       alt="Avatar">
     <div class="media-body">
-      <h5 class="mt-0 font-weight-bold blue-text">Anna Smith</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-      odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-      fringilla. Donec lacinia congue felis in faucibus.
-  
       <div class="media mt-3 shadow-textarea">
-        <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
-          alt="Generic placeholder image">
         <div class="media-body">
           <h5 class="mt-0 font-weight-bold blue-text">Danny Tatuum</h5>
           <div class="form-group basic-textarea rounded-corners">
@@ -331,6 +326,11 @@
     $(document).ready(function(){
         $('#hide').click(function(){
             $('#skills').toggle();
+        });
+
+        $("#reviews").click(function(){
+          var elmnt = document.getElementById("user_reviews");
+          elmnt.scrollIntoView();
         });
     });
 </script>
