@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from phone_field import PhoneField
+from django.dispatch import receiver
 import uuid
 
 def user_directory_path(instance, filename):
@@ -36,6 +37,12 @@ class Profile(models.Model):
     @classmethod
     def update(cls, id, value):
         cls.objects.filter(id=id).update(avatar=value)
+        
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
     
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
