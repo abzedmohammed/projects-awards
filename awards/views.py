@@ -27,6 +27,42 @@ def single_project(request):
 def profile(request):
     return render(request, 'profile/profile.html')
 
+@login_required
+def like(request,post_id):
+    user = request.user
+    post = Project.objects.get(id=post_id)
+    current_likes = post.like
+    
+    liked = Likes.objects.filter(user=user, post=post).count()
+    
+    if not liked:
+        like = Likes.objects.create(user=user,post=post)
+        
+        current_likes = current_likes + 1
+        
+    else:
+        Likes.objects.filter(user=user,post=post).delete()
+        current_likes = current_likes - 1
+        
+    post.like = current_likes
+    post.save() 
+    
+    return HttpResponseRedirect(reverse('MainPage'))    
+
+# @login_required
+# def search_results(request):
+    
+#     if "users" in request.GET and request.GET["users"]:
+#         search_term = request.GET.get("users")
+#         searched_accounts = Post.search_user(search_term)
+#         message = f"{search_term}"
+
+#         return render(request, 'search.html',{"message":message,"users": searched_accounts})
+
+#     else:
+#         message = "You haven't searched for any user"
+#         return render(request, 'search.html',{"message":message})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
