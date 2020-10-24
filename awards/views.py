@@ -91,6 +91,22 @@ def follow(request, username, option):
     except User.DoesNotExist:
         return HttpResponseRedirect(reverse('profile', args=[username]))      
 
+
+@login_required
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
+    posts = Project.objects.filter(user=user).order_by("-date")
+    
+    post_count = Project.objects.filter(user=user).count()
+    follower_count = Follow.objects.filter(following=user).count()
+    following_count = Follow.objects.filter(follower=user).count()
+    follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
+    
+    return render(request,'profile/profile.html', {'user':user, 'profile':profile, 'posts':posts, 'post_count':post_count, 
+                                                   'follower_count':follower_count, 'following_count':following_count,'follow_status':follow_status})
+
+
 # @login_required
 # def search_results(request):
     
