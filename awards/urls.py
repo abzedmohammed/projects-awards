@@ -13,9 +13,9 @@ urlpatterns=[
     path('accounts/login', views.login, name='login'),
 #    # path('accounts/register', views.welcome_email, name='welcome'),
 #     path('add_image/', views.add_image, name='addImage'),
-#     path('<uuid:post_id>', views.single_post, name='singlePost'),
-#     path('<uuid:post_id>/like', views.like, name='likePost'),
-#     path('profile/<username>', views.user_profile, name='profile'),
+#     path('<uuid:post_id>', views.single_project, name='singleProject'),
+    path('<uuid:post_id>/like', views.like, name='likePost'),
+    path('profile/<username>', views.profile, name='profile'),
     path('profile/<username>/edit', views.profile_edit, name='editProfile'),
     path('profile/<username>/follow/<option>', views.follow, name='follow'),
 ]
