@@ -7,6 +7,7 @@ urlpatterns=[
     path('', views.index, name='MainPage'),
     path('profile/', views.profile, name='profile'),
     path('singlePost/', views.single_project, name='singleProject'),
+    path('signup/', views.signup, name='signup'),
     #path('/accounts/register', views.welcome_email, name='WelcomePage'),
 #     path('search/', views.search_results, name='search_results'),
 #     path('logout/', views.logout, name='logout'),

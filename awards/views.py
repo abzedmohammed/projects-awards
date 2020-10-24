@@ -41,4 +41,4 @@ def signup(request):
             return redirect('/')
     else:
         form = SignUpForm()
-    return render(request, 'django_registration/registration_form.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})

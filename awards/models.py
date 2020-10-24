@@ -18,7 +18,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(max_length=120, null=True)
     avatar = CloudinaryField('image')
-    whatsapp = PhoneField(blank=True)
+    whatsapp = PhoneField(blank=True, null=True)
     facebook = models.URLField(max_length=250, null=True)
     linkedin = models.URLField(max_length=250, null=True)
     twitter = models.URLField(max_length=250, null=True)
@@ -26,7 +26,7 @@ class Profile(models.Model):
     skills = TaggableManager(blank=True)
     
     def __str__(self):
-        return self.bio
+        return self.user.username
     
     def save_image(self):
         self.save()
