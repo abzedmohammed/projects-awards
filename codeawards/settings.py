@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'awards',
     'bootstrap4',
     'rest_framework',
+    'taggit'
 ]
 
 MIDDLEWARE = [
