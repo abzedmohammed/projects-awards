@@ -66,7 +66,30 @@ def profile_edit(request,username):
             form = EditProfileForm(instance=profile)
     legend = 'Edit Profile'
     return render(request, 'profile/update.html', {'legend':legend, 'form':EditProfileForm})
- 
+
+@login_required
+def follow(request, username, option):
+    user = request.user
+    folllowing = get_object_or_404(User, username=username)
+    
+    try:
+        f, created = Follow.objects.get_or_create(follower=user, following=folllowing)
+        
+        if int(option) == 0:
+            f.delete()
+            Stream.objects.filter(following=folllowing, user=user).all().delete()
+            
+        else:
+            posts = Project.objects.all().filter(user=folllowing)[:10]
+            
+            with transaction.atomic():
+                for post in posts:
+                    stream = Stream(post=post, user=user, date=post.date, following=folllowing)
+                    stream.save()
+                    
+        return HttpResponseRedirect(reverse('profile', args=[username]))
+    except User.DoesNotExist:
+        return HttpResponseRedirect(reverse('profile', args=[username]))      
 
 # @login_required
 # def search_results(request):
