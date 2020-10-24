@@ -47,7 +47,26 @@ def like(request,post_id):
     post.like = current_likes
     post.save() 
     
-    return HttpResponseRedirect(reverse('MainPage'))    
+    return HttpResponseRedirect(reverse('MainPage'))   
+
+@login_required
+def profile_edit(request,username):
+    user = get_object_or_404(User, username=username)
+    profile = user.profile
+    form = EditProfileForm(instance=profile)
+    
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = user
+            data.save()
+            return HttpResponseRedirect(reverse('profile', args=[username]))
+        else:
+            form = EditProfileForm(instance=profile)
+    legend = 'Edit Profile'
+    return render(request, 'profile/update.html', {'legend':legend, 'form':ProfileForm})
+ 
 
 # @login_required
 # def search_results(request):
