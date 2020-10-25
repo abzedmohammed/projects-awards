@@ -95,31 +95,38 @@
 <div class="container">
     <h2 style="text-decoration: underline;" class="text-center">Projects</h2>
 
-    {% if post %}
+    {% if posts %}
 
     <div class="row"> 
             
-        {% for items in post %}
+        {% for items in posts %}
           
         <div class="col-md-4 col-sm-4 col-lg-4">
           <div class="card">
               <div class="card-header">
-                  <div class="date font-weight-bold">{{ items.date|date }}</div>
+                  <div class="font-weight-bold">{{ items.date|date }}</div>
               </div>
               <div class="card-content">
                   <img src="{{ items.image.url }}" style="width: 100%">
               </div>
               <div class="card-content p-2">
-                  <span><small>Likes: </small>{{ items.like }}</span>
+                  <span>Likes: {{ items.like }}</span>
               </div>
               <div class="card-footer">
-                  <button class="flat-button mif-thumbs-up mif-2x"></button>
-                  <button class="flat-button mif-tag mif-2x"></button>
+                  
+                  {% if okay == 'False' %}
+                  <a href="{% url 'likePost' items.id %}" style="color: green;" class="flat-button mif-thumbs-up mif-2x"></a>
+                  {% else %}
+                  <a href="{% url 'likePost' items.id %}" style="color: blue;" class="flat-button mif-thumbs-up mif-2x"></a>
+                  {% endif %}
+
                   <button class="flat-button mif-share mif-2x"></button>
               </div>
           </div>
         </div>
         {% endfor %}
+        <br>
+        <hr>
   
 </div>
 {% else %}

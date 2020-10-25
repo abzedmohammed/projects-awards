@@ -22,30 +22,45 @@ def index(request):
     return render(request, 'index.html')
 
 @login_required
-def single_project(request):
-    return render(request, 'awards.html')
-
+def single_project(request,post_id):
+    post = get_object_or_404(Project, id=post_id)
+    user = request.user
+    comments = Comment.objects.filter(post=post).order_by('-date')
+    
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = user
+            data.post = post
+            data.save()
+            return HttpResponseRedirect(reverse('singlePost', args=[post_id]))
+            #return redirect('singlePost')
+        else:
+            form = CommentForm()
+    
+    return render(request, 'single_post.html', {'post':post, 'form':CommentForm, 'comments':comments}) 
 @login_required
 def like(request,post_id):
     user = request.user
     post = Project.objects.get(id=post_id)
     current_likes = post.like
     
-    liked = Likes.objects.filter(user=user, post=post).count()
+    liked = Likes.objects.filter(user=user, project=post).count()
     
     if not liked:
-        like = Likes.objects.create(user=user,post=post)
+        like = Likes.objects.create(user=user,project=post)
         
         current_likes = current_likes + 1
         
     else:
-        Likes.objects.filter(user=user,post=post).delete()
+        Likes.objects.filter(user=user,project=post).delete()
         current_likes = current_likes - 1
         
     post.like = current_likes
     post.save() 
     
-    return HttpResponseRedirect(reverse('MainPage'))   
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
 
 @login_required
 def profile_edit(request,username):

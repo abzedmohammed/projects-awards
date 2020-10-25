@@ -47,13 +47,13 @@ def update_user_profile(sender, instance, created, **kwargs):
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_user')
-    image = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=True)
+    image = models.ImageField(upload_to=user_directory_path, verbose_name='project_pic', null=True)
     project_name = models.CharField(max_length=120, null=True)
-    description = models.TextField(max_length=1000, verbose_name='Caption', null=True)
+    description = models.TextField(max_length=1000, verbose_name='project_description', null=True)
     date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_profile')
     like = models.IntegerField(default=0)
-    tags = TaggableManager(blank=True)
+    #tags = TaggableManager(blank=True)
     
     # class Meta:
     #     ordering = ['-date',]
@@ -74,7 +74,9 @@ class Project(models.Model):
         
 class Screenshot(models.Model):
     project = models.ForeignKey(Project, default=None, on_delete=models.CASCADE)
-    images = models.FileField(upload_to=user_directory_path, verbose_name='Pics', null=True)  
+    images = models.FileField(upload_to=user_directory_path, verbose_name='pics', null=True)  
+    def __str__(self):
+        return self.project.project_name
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')

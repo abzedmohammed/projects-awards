@@ -6,9 +6,12 @@
     <li class="nav-item">
         <h5><a class="nav-link white-text" href="#!"><i class="fas fa-plus-circle">  Post</i></a></h5>
     </li>
-    <li class="nav-item">
-        <h5> <a class="nav-link white-text" href="{% url 'profile' %}"><i class="fas fa-user-circle">  My Profile</i></a></h5>
+    
+    {% if user %}  
+    <li class="nav-item">      
+        <h5> <a class="nav-link white-text" href="{% url 'profile' request.user.username  %}"><i class="fas fa-user-circle">  {{ request.user.username}} </i></a></h5>
     </li>
+    {% endif %}
     <!-- <li class="nav-item avatar">
         <h5><a class="nav-link p-0" href="#">
           <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0"
