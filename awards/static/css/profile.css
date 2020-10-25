@@ -42,7 +42,7 @@ p {
     border: 1px solid #03BFCB;
     padding: 7px;
     width: 400px;
-    height: auto;
+    height: 350px;
     object-fit: cover;
     margin: auto;
 }
@@ -108,4 +108,9 @@ footer i {
 footer a {
     color: #3c97bf;
     text-decoration: none;
+}
+
+.card-content img{
+    height: 300px;
+    object-fit: cover;
 }

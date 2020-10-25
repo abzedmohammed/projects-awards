@@ -66,3 +66,30 @@
   font-weight: bolder;
   text-align: center;
 }
+
+.media img{
+  width: 70px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.container-fluid .main_pic img{
+  width: 100%;
+  height: 720px;
+  object-fit: cover;  
+}
+
+.first img{
+  height: 350px;
+  object-fit: cover;
+}
+
+.second img{
+  height: 350px;
+  object-fit: cover;
+}
+
+.third img{
+  height: 350px;
+  object-fit: cover;
+}
