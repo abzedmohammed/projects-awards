@@ -25,21 +25,21 @@ def index(request):
 def single_project(request,post_id):
     post = get_object_or_404(Project, id=post_id)
     user = request.user
-    comments = Comment.objects.filter(post=post).order_by('-date')
+    comments = Comment.objects.filter(project=post).order_by('-date')
     
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             data = form.save(commit=False)
             data.user = user
-            data.post = post
+            data.project = post
             data.save()
-            return HttpResponseRedirect(reverse('singlePost', args=[post_id]))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
             #return redirect('singlePost')
         else:
             form = CommentForm()
     
-    return render(request, 'single_post.html', {'post':post, 'form':CommentForm, 'comments':comments}) 
+    return render(request, 'awards.html', {'post':post, 'form':CommentForm, 'comments':comments}) 
 @login_required
 def like(request,post_id):
     user = request.user

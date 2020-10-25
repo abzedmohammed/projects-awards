@@ -107,7 +107,9 @@
                   <div class="font-weight-bold">{{ items.date|date }}</div>
               </div>
               <div class="card-content">
-                  <img src="{{ items.image.url }}" style="width: 100%">
+                  <a href="{% url 'singleProject' items.id %}">
+                    <img src="{{ items.image.url }}" style="width: 100%">
+                  </a>          
               </div>
               <div class="card-content p-2">
                   <span>Likes: {{ items.like }}</span>
