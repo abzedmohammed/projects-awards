@@ -12,15 +12,15 @@
 {% block content %} 
 
 <!-- Jumbotron -->
-<div class="card card-image" style="background-image: url('/static/img/code.jpg');">
+<div class="card card-image" style="background-image: url('{{ first.image.url }}');">
     <div class="text-white text-center rgba-stylish-strong py-5 px-4">
       <div class="py-5">
   
         <!-- Content -->
-        <h2 class="card-title h2 my-4 py-2">Jumbotron with image overlay</h2>
-        <h5>Posted By, <span class="h5 orange-text lead"> Abzed</span> </h5>
+        <h2 class="card-title h2 my-4 py-2">{{ first.project_name }}</h2>
+        <h5>Posted By, <span class="h5 orange-text lead"> {{ first.profile.user.username }}</span> </h5>
 
-        <p class="mb-4 pb-2 px-md-5 mx-md-5 lead">This is a project that highlight reviews and likes nad ratings of projects submotted by users to make them feel good or miserable...</p>
+        <p class="mb-4 pb-2 px-md-5 mx-md-5 lead">{{ first.description }}</p>
             
         <div class="circle mt-5">
             <div class="box">
@@ -37,10 +37,10 @@
             </div>
         </div> 
 
-            <div class="buttons">
-                <a class="white-text" href=""><i class="fas fa-chevron-circle-right fa-2x"></i></a>
-                <a class="white-text" href=""><i class="fas fa-chevron-circle-left fa-2x"></i></a>    
-            </div> 
+            <!-- <div class="buttons">
+                <a href="" class="white-text"><i class="fas fa-chevron-circle-right fa-2x"></i></a>
+                <a href="" class="white-text"><i class="fas fa-chevron-circle-left fa-2x"></i></a>    
+            </div>  -->
         
   
       </div>

@@ -16,10 +16,16 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
+# from next_prev import next_in_order, prev_in_order
 
 @login_required
 def index(request):
-    return render(request, 'index.html')
+    post = Project.objects.all()
+    first = Project.objects.order_by('?').first()
+    # second = next_in_order(first)
+    # prev_in_order(second) == first # True
+    # last = prev_in_order(first, loop=True)
+    return render(request, 'index.html', {'post':post, 'first':first})
 
 @login_required
 def single_project(request,post_id):
