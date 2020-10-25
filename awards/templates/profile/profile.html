@@ -11,66 +11,106 @@
 
 <div class="container-fluid">
     <div class="card-container">
-        <img class="round img-fluid rounded-circle" src="/static/img/stoned.jpg" alt="user" />
-        <h2>Ricky Park</h2>
-        <h6><i class="fas fa-map-marker-alt">  New York</i></h6>
-        <p>User interface designer and <br/> front-end developer</p>
+
+        {% if profile.avatar %}
+        <img class="round img-fluid rounded-circle" src="{{ profile.avatar.url }}" alt="userpic" />
+        {% else %}
+        <img class="round img-fluid rounded-circle" src="/static/img/code.jpg" alt="userpic" />
+        {% endif %}
+
+        <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+        <h3 class="text-muted">@{{profile.user.username}}</h3>
+        
+        {% if profile.location %}
+        <h6><i class="fas fa-map-marker-alt">  {{ profile.location }}</i></h6>
+        {% else %}
+        <h6><i class="fas fa-map-marker-alt">  Please Set Your Location..!!</i></h6>
+        {% endif %}
+            
+        {% if profile.job_title %}
+        <p><i class="fas fa-briefcase"></i>   {{ profile.job_title }}</p>
+        {% else %}
+        <p>Set Your Career Title</p>
+        {% endif %}
+                
         <div class="contact">
             <h3 style="text-decoration: underline;">Contacts</h3>
-            <a class="btn btn-outline-default btn-rounded waves-effect"><i class="fas fa-envelope">  ibraabzed@gmail.com</i></a>
-            <a type="button" class="btn btn-outline-default btn-rounded waves-effect"><i class="fas fa-phone">  0759507042</i></a>
+            <a class=""><i class="fas fa-envelope">  {{ profile.user.email }}</i></a>
+
+            
+            {% if profile.whatsapp %}
+            <a type="button" class=""><i class="fas fa-phone">  {{ profile.whatsapp }}</i></a>
+            {% endif %}
+                
             <div class="social mt-3 mb-3">
-                <a class="btn-lg btn-whatsapp" type="button" role="button"><i class="fab fa-whatsapp fa-2x" style="color: #128C7E;"></i></a>
-                <a class="btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f fa-2x" style="color: #4267B2;"></i></a>
-                <a class="btn-lg btn-li" type="button" role="button"><i class="fab fa-linkedin-in fa-2x" style="color: dodgerblue;"></i></a>
-                <a class="btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter fa-2x" style="color: #00acee;"></i></a>
-                <a class="btn-lg btn-git" type="button" role="button"><i class="fab fa-github fa-2x" style="color: black;"></i></a>
+                <a href="{{ profile.whatsapp }}" class="btn-lg btn-whatsapp" type="button" role="button"><i class="fab fa-whatsapp fa-2x" style="color: #128C7E;"></i></a>
+                <a href="{{ profile.facebook }}" class="btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f fa-2x" style="color: #4267B2;"></i></a>
+                <a href="{{ profile.linkedin }}" class="btn-lg btn-li" type="button" role="button"><i class="fab fa-linkedin-in fa-2x" style="color: dodgerblue;"></i></a>
+                <a href="{{ profile.twitter }}" class="btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter fa-2x" style="color: #00acee;"></i></a>
+                <a href="{{ profile.github }}" class="btn-lg btn-git" type="button" role="button"><i class="fab fa-github fa-2x" style="color: black;"></i></a>
             </div>
         </div>
         <div class="buttons">
             <div class="bio mt-2">
                 <h4>Bio...</h4>
-                <p class="lead">This is my bio.... read at your own risk</p>
+                
+                {% if profile.bio %}
+                <p class="lead">{{ profile.bio }}</p>
+                {% else %}
+                <p class="lead">Describe yourself...</p>
+                {% endif %}
+                    
             </div>
         </div>
         <div class="skills">
-            <h4 style="text-decoration: underline;">Skills</h5>
+            <h4 style="text-decoration: underline;">Skills</h4>
+            
+            {% if profile.skills.all %}
             <ul class="lead">
-                <li>UI / UX</li>
-                <li>Front End Development</li>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>React</li>
-                <li>Node</li>
+                {% for tag in profile.skills.all %}
+                <li>{{ tag }}</li>
+                {% endfor %}                
             </ul>
+            {% else %}
+            <p class="lead">Please add your skills...</p>
+            {% endif %}
+                
         </div>
         <div class="buttons">
-            <button class="primary">
+            {% if request.user == profile.user %}
+            <a href="{% url 'editProfile' profile.user %}" class="btn primary">
                 Edit Profile
-            </button>
-            <button class="primary ghost">
-                Follow
-            </button>
+            </a>
+            {% endif %}
+            {% if follow_status == True %}
+            <a class="btn btn-outline-danger" href="{% url 'follow' profile.user 0 %}">Unfollow</a>
+            {% else %}
+            <a class="btn btn-outline-success" href="{% url 'follow' profile.user 1 %}">Follow</a>
+            {% endif %}
+
         </div>
     </div>
+</div>
     <hr>
 <div class="container">
     <h2 style="text-decoration: underline;" class="text-center">Projects</h2>
-    <div class="row">
-    </div>
-      <div class="row">
+
+    {% if post %}
+
+    <div class="row"> 
+            
+        {% for items in post %}
+          
         <div class="col-md-4 col-sm-4 col-lg-4">
           <div class="card">
               <div class="card-header">
-                  <div class="date font-weight-bold">Monday at 3:47 PM</div>
+                  <div class="date font-weight-bold">{{ items.date|date }}</div>
               </div>
               <div class="card-content">
-                  <img src="/static/img/stoned.jpg" style="width: 100%">
+                  <img src="{{ items.image.url }}" style="width: 100%">
               </div>
               <div class="card-content p-2">
-                  <span><small>Likes: </small>112</span>
-                  <span><small>Comments: </small>43</span>
+                  <span><small>Likes: </small>{{ items.like }}</span>
               </div>
               <div class="card-footer">
                   <button class="flat-button mif-thumbs-up mif-2x"></button>
@@ -79,50 +119,18 @@
               </div>
           </div>
         </div>
-    <div class="col-md-4 col-sm-4 col-lg-4">
-      <div class="card">
-          <div class="card-header">
-              <div class="date">Monday at 3:47 PM</div>
-          </div>
-          <div class="card-content">
-              <img src="/static/img/ich.jpg" style="width: 100%">
-          </div>
-          <div class="card-content p-2">
-              <span><small>Likes: </small>112</span>
-              <span><small>Comments: </small>43</span>
-          </div>
-          <div class="card-footer">
-              <button class="flat-button mif-thumbs-up mif-2x"></button>
-              <button class="flat-button mif-tag mif-2x"></button>
-              <button class="flat-button mif-share mif-2x"></button>
-          </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-4 col-lg-4">
-      <div class="card">
-          <div class="card-header">
-              <div class="date">Monday at 3:47 PM</div>
-          </div>
-          
-          <div class="card-content">
-              <img src="/static/img/sana.jpg" style="width: 100%">
-          </div>
-          <div class="card-content p-2">
-              <span><small>Likes: </small>112</span>
-              <span><small>Comments: </small>43</span>
-          </div>
-          <div class="card-footer">
-              <button class="flat-button mif-thumbs-up mif-2x"></button>
-              <button class="flat-button mif-tag mif-2x"></button>
-              <button class="flat-button mif-share mif-2x"></button>
-          </div>
-      </div>
-    </div>
-    
-    </div>
-
+        {% endfor %}
+  
 </div>
+{% else %}
+<div class="text-center">
+<h4>You Have Not Posted Any Projects</h4>
+<a class="btn btn-md btn-outline-teal" href="">Upload Project</a>
+</div>
+<br>
+<hr>
+{% endif %}
+
 </div>
   
 {% endblock  %}

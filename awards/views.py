@@ -20,12 +20,10 @@ from django.contrib.sites.shortcuts import get_current_site
 @login_required
 def index(request):
     return render(request, 'index.html')
+
 @login_required
 def single_project(request):
     return render(request, 'awards.html')
-@login_required
-def profile(request):
-    return render(request, 'profile/profile.html')
 
 @login_required
 def like(request,post_id):
@@ -96,6 +94,7 @@ def follow(request, username, option):
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = Profile.objects.get(user=user)
+    skills = Profile.objects.all()
     posts = Project.objects.filter(user=user).order_by("-date")
     
     post_count = Project.objects.filter(user=user).count()
@@ -104,7 +103,8 @@ def profile(request, username):
     follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
     
     return render(request,'profile/profile.html', {'user':user, 'profile':profile, 'posts':posts, 'post_count':post_count, 
-                                                   'follower_count':follower_count, 'following_count':following_count,'follow_status':follow_status})
+                                                   'follower_count':follower_count, 'following_count':following_count,'follow_status':follow_status,
+                                                   'skills':skills})
 
 @login_required
 def post_project(request):

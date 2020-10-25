@@ -19,10 +19,10 @@ class Profile(models.Model):
     bio = models.TextField(max_length=120, null=True)
     avatar = CloudinaryField('image')
     whatsapp = PhoneField(blank=True, null=True)
-    facebook = models.URLField(max_length=250, null=True)
-    linkedin = models.URLField(max_length=250, null=True)
-    twitter = models.URLField(max_length=250, null=True)
-    github = models.URLField(max_length=250, null=True)
+    facebook = models.URLField(max_length=250, null=True, blank=True)
+    linkedin = models.URLField(max_length=250, null=True, blank=True)
+    twitter = models.URLField(max_length=250, null=True, blank=True)
+    github = models.URLField(max_length=250, null=True, blank=True)
     skills = TaggableManager(blank=True)
     
     def __str__(self):

@@ -47,7 +47,7 @@ p {
     margin: auto;
 }
 
-button.primary {
+a.primary {
     background-color: #03BFCB;
     border: 1px solid #03BFCB;
     border-radius: 3px;
@@ -57,9 +57,9 @@ button.primary {
     padding: 10px 25px;
 }
 
-button.primary.ghost {
-    background-color: transparent;
-    color: #02899C;
+a.primary.ghost {
+    color:#fff;
+    font-weight: bold;
 }
 
 .skills {
