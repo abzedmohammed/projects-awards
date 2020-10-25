@@ -74,7 +74,9 @@ class Project(models.Model):
         
 class Screenshot(models.Model):
     project = models.ForeignKey(Project, default=None, on_delete=models.CASCADE)
-    images = models.FileField(upload_to=user_directory_path, verbose_name='pics', null=True)  
+    image_1 = models.FileField(upload_to='images/', verbose_name='pics', null=True)  
+    image_2 = models.FileField(upload_to='image_2/', verbose_name='pics_2', null=True)  
+    image_3 = models.FileField(upload_to='image_3/', verbose_name='pics_3', null=True)  
     def __str__(self):
         return self.project.project_name
     
