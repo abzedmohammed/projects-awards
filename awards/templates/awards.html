@@ -31,7 +31,7 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-12 mb-3 first">
       
-          <img src="{{ pics.image_1.url }}" class="img-fluid z-depth-1"
+          <img src="{{ post.screenshots.image_1.url }}" class="img-fluid z-depth-1"
             alt="Responsive image">
       
         </div>
@@ -40,7 +40,7 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-6 mb-3 second">
       
-          <img src="{{ pics.image_2.url }}" class="img-fluid z-depth-1"
+          <img src="{{ post.screenshots.image_2.url }}" class="img-fluid z-depth-1"
             alt="Responsive image">
       
         </div>
@@ -49,7 +49,7 @@
         <!-- Grid column -->
         <div class="col-lg-4 col-md-6 mb-3 third">
       
-          <img src="{{ pics.image_3.url }}" class="img-fluid z-depth-1"
+          <img src="{{ post.screenshots.image_3.url }}" class="img-fluid z-depth-1"
             alt="Responsive image">
       
         </div>
@@ -241,8 +241,7 @@
   <div class="media">
 
     {% if items.profile.avatar.url %}
-    <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ items.user."
-      alt="Avatar">
+    <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ items.profile.avatar.url }}"  alt="Avatar">
       {% else %}
       <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg"
           alt="Avatar">

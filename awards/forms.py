@@ -22,7 +22,12 @@ class EditProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        exclude = ['user', 'profile', 'like']
+        exclude = ['user', 'profile', 'like', 'screenshots']
+
+class ScreenshotForm(forms.ModelForm):
+    class Meta:
+        model = Screenshot
+        fields = '__all__'
         
 class CommentForm(forms.ModelForm):
     class Meta:

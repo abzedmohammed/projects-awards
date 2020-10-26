@@ -48,14 +48,14 @@ class Screenshot(models.Model):
     image_1 = models.FileField(upload_to='images/', verbose_name='Image', null=True)  
     image_2 = models.FileField(upload_to='image_2/', verbose_name='Second Image', null=True)  
     image_3 = models.FileField(upload_to='image_3/', verbose_name='Third Image', null=True)  
-    def __str__(self):
-        return self.project.project_name
+    # def __str__(self):
+    #     return self.image_1
     
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_user')
     image = models.ImageField(upload_to=user_directory_path, verbose_name='Main Image', null=True)
-    screenshots = models.ForeignKey(Screenshot, on_delete=models.CASCADE, related_name='Project Images')
+    screenshots = models.ForeignKey(Screenshot, on_delete=models.CASCADE, related_name='project_images')
     project_name = models.CharField(max_length=120, null=True)
     description = models.TextField(max_length=1000, verbose_name='project Description', null=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -109,7 +109,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
     date = models.DateTimeField(auto_now_add=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='post_comment')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_profile')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='commenter_profile')
             
 post_save.connect(Stream.add_project, sender=Project)
     
