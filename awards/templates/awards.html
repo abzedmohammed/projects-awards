@@ -224,22 +224,38 @@
           <h5 class="mt-0 font-weight-bold blue-text">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
           <h6 class="mt-0 font-weight-bold blue-text text-muted">@{{ request.user.username }}</h6>
           <div class="form-group basic-textarea rounded-corners">
-            <textarea class="form-control z-depth-1" id="exampleFormControlTextarea345" rows="3" placeholder="Write your comment..."></textarea>
+            <form class="form-group" method="POST"> 
+              {% csrf_token %} 
+              {{ backend_form }}
+            <textarea class="form-control z-depth-1" id="exampleFormControlTextarea345" name="comment" rows="3" placeholder="Write your comment..."></textarea>
+            <button type="submit" class="btn btn-sm btn-outline-primary">Submit</button>
+          </form> 
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  {% for items in comments %}
+
   <div class="media">
-    <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg"
+
+    {% if items.profile.avatar.url %}
+    <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ items.user."
       alt="Avatar">
+      {% else %}
+      <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg"
+          alt="Avatar">
+      {% endif %}
+
     <div class="media-body">
-      <h5 class="mt-0 font-weight-bold blue-text">Caroline Horwitz</h5>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odit minima eaque dignissimos recusandae
-      officiis commodi nulla est, tempore atque voluptas non quod maxime, iusto, debitis aliquid? Iure ipsum,
-      itaque.
+      <h5 class="mt-0 font-weight-bold blue-text">{{ items.user.first_name }} {{ items.user.last_name }}</h5>
+     <span style="color: #111;"> {{ items.comment }}</span>
+      <p class="text-muted">{{ items.date| timesince }} ago...</p>
     </div>
   </div>
+<hr>
+  {% endfor %}
 </div>
 <br>
 <!-- Footer -->

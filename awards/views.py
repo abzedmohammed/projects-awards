@@ -34,15 +34,27 @@ def single_project(request,post_id):
     user = request.user
     comments = Comment.objects.filter(project=post).order_by('-date')
     
+    # if request.method == "POST":
+    #     form = CommentForm(request.POST)
+    #     if form.is_valid():
+    #         data = form.save(commit=False)
+    #         data.user = user
+    #         data.project = post
+    #         data.save()
+    #         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
+    #         #return redirect('singlePost')
+    #     else:
+    #         form = CommentForm()
+    
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-            data = form.save(commit=False)
-            data.user = user
-            data.project = post
-            data.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
-            #return redirect('singlePost')
+            comment = request.POST.get("comment")
+            user = request.user
+            project = post
+            get_comment = Comment(comment=comment, user=user, project=project)
+            get_comment.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             form = CommentForm()
     
