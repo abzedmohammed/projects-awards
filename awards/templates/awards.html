@@ -210,8 +210,8 @@
 <h3 id="user_reviews" class="mt-5 mb-3" style="text-decoration: underline;">User Reviews</h3>
 <div class="media">
   
-  {% if post.profile.avatar.url %}
-  <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ post.profile.avatar.url }}"
+  {% if profile.avatar.url %}
+  <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ profile.avatar.url }}"
   alt="Avatar">
   {% else %}
   <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg"
@@ -243,8 +243,7 @@
     {% if items.profile.avatar.url %}
     <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ items.profile.avatar.url }}"  alt="Avatar">
       {% else %}
-      <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg"
-          alt="Avatar">
+      <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg" alt="Avatar">
       {% endif %}
 
     <div class="media-body">

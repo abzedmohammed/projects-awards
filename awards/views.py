@@ -32,6 +32,7 @@ def single_project(request,post_id):
     post = get_object_or_404(Project, id=post_id)
     # pics = Screenshot.objects.get(project=post_id)
     user = request.user
+    profile = get_object_or_404(Profile, user=user)
     comments = Comment.objects.filter(project=post).order_by('-date')
     
     # if request.method == "POST":
@@ -52,14 +53,14 @@ def single_project(request,post_id):
             comment = request.POST.get("comment")
             user = request.user
             project = post
-            get_comment = Comment(comment=comment, user=user, project=project,profile=user)
+            get_comment = Comment(comment=comment, project=project,profile=profile)
             get_comment.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             form = CommentForm()
     
     return render(request, 'awards.html', {'post':post, 'form':CommentForm, 'comments':comments, 
-                                           }) 
+                                           'profile':profile}) 
 @login_required
 def like(request,post_id):
     user = request.user
@@ -145,6 +146,7 @@ def profile(request, username):
 def post_project(request):
     userX = request.user
     user = Profile.objects.get(user=request.user)
+    
     if request.method == "POST":
         
         form = ProjectForm(request.POST, request.FILES)

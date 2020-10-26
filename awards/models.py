@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from taggit.managers import TaggableManager
 from phone_field import PhoneField
 from django.dispatch import receiver
+from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
 def user_directory_path(instance, filename):
@@ -45,9 +46,9 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
     
 class Screenshot(models.Model):
-    image_1 = models.FileField(upload_to='images/', verbose_name='Image', null=True)  
-    image_2 = models.FileField(upload_to='image_2/', verbose_name='Second Image', null=True)  
-    image_3 = models.FileField(upload_to='image_3/', verbose_name='Third Image', null=True)  
+    image_1 = models.FileField(upload_to='images/', verbose_name='Image')  
+    image_2 = models.FileField(upload_to='image_2/', verbose_name='Second Image')  
+    image_3 = models.FileField(upload_to='image_3/', verbose_name='Third Image')  
     # def __str__(self):
     #     return self.image_1
     
@@ -80,6 +81,29 @@ class Project(models.Model):
     def delete_image(self):
         self.delete()  
         
+    def no_of_rating(self):
+        ratings = Rating.objects.filter(project=self)
+        return len(ratings)
+    
+    def average_ratings(self):
+        sum = 0
+        ratings = Rating.objects.filter(project=self)
+        
+        for rating in ratings:
+            sum += rating.design + rating.usability + rating.content
+            
+        if len(ratings) > 0 :
+            return sum / len(ratings)
+        
+        else:
+            return 0        
+        
+class Rating(models.Model):
+    design = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    usability = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    content = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='post_ratings')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='rater_profile')
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
@@ -106,7 +130,7 @@ class Likes(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comment')
     date = models.DateTimeField(auto_now_add=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='post_comment')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='commenter_profile')

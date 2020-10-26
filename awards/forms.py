@@ -32,4 +32,4 @@ class ScreenshotForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ['user','project','profile']
+        exclude = ['project','profile']
