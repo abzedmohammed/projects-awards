@@ -5,7 +5,7 @@
     </li>
     {% if user.is_authenticated %}
     <li class="nav-item">
-        <h5><a class="nav-link white-text" href="#!"><i class="fas fa-plus-circle">  Post</i></a></h5>
+        <h5><a class="nav-link white-text" href="{% url 'addProject' %}"><i class="fas fa-plus-circle">  Post</i></a></h5>
     </li>
 
     {% if user %}  
