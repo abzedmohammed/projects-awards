@@ -35,3 +35,8 @@
     color: white;
     text-align: center;
 }
+
+.card-content img{
+    height: 400px;
+    object-fit: cover;
+}

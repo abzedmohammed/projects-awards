@@ -41,8 +41,6 @@
                 <a href="" class="white-text"><i class="fas fa-chevron-circle-right fa-2x"></i></a>
                 <a href="" class="white-text"><i class="fas fa-chevron-circle-left fa-2x"></i></a>    
             </div>  -->
-        
-  
       </div>
     </div>
   </div>
@@ -52,89 +50,38 @@
           <div class="col-12"><h3>Top Rated Projects</h3></div>
       </div>
       <div class="row">
+          {% for items in post %}
+            
           <div class="col-md-4 col-sm-4 col-lg-4">
             <div class="card">
                 <div class="card-header">
                     <div class="avatar">
-                        <img src="/static/img/bl.jpg">
+                        <img src="{{ items.profile.avatar.url }}">
                     </div>
-                    <div class="name">John Doe</div>
-                    <div class="date">Monday at 3:47 PM</div>
+                    <div class="name lead">{{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</div>
+                    <!-- <div class="date">@{{ items.profile.user.username }}</div> -->
+                    <div class="date lead">{{ items.date| date }}</div>
                 </div>
-                <div class="card-content p-2">
-                    What a nice photo i took yesterday!
+                <div class="card-content p-3 lead">
+                    {{ items.description | truncatechars:38 }}
                 </div>
                 <div class="card-content">
-                    <a href="/singlePost">
-                        <img src="/static/img/blea.jpg" style="width: 100%">
+                    <a href="{% url 'singleProject' items.id %}">
+                        <img src="{{ items.image.url }}" style="width: 100%">
                     </a>
                    
                 </div>
-                <div class="card-content fg-gray p-2">
-                    <span><small>Likes: </small>112</span>
-                    <span><small>Comments: </small>43</span>
+                <div class="card-content fg-gray p-2 lead">
+                    <span><small>Likes: </small>{{ items.like }}</span>
+                    
                 </div>
                 <div class="card-footer">
-                    <button class="flat-button mif-thumbs-up mif-2x"></button>
-                    <button class="flat-button mif-tag mif-2x"></button>
-                    <button class="flat-button mif-share mif-2x"></button>
+                    <a href="{% url 'likePost' items.id %}" class="flat-button mif-thumbs-up mif-3x">Like</a>
+                    <a href="{% url 'singleProject' items.id %}" class="flat-button mif-comment mif-3x">Reviews</a>
                 </div>
             </div>
           </div>
-      <div class="col-md-4 col-sm-4 col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <div class="avatar">
-                    <img src="/static/img/nar.jpg">
-                </div>
-                <div class="name">John Doe</div>
-                <div class="date">Monday at 3:47 PM</div>
-            </div>
-            <div class="card-content p-2">
-                What a nice photo i took yesterday!
-            </div>
-            <div class="card-content">
-                <img src="/static/img/muge.jpg" style="width: 100%">
-            </div>
-            <div class="card-content fg-gray p-2">
-                <span><small>Likes: </small>112</span>
-                <span><small>Comments: </small>43</span>
-            </div>
-            <div class="card-footer">
-                <button class="flat-button mif-thumbs-up mif-2x"></button>
-                <button class="flat-button mif-tag mif-2x"></button>
-                <button class="flat-button mif-share mif-2x"></button>
-            </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 col-sm-4 col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <div class="avatar">
-                    <img src="/static/img/astra.png">
-                </div>
-                <div class="name">John Doe</div>
-                <div class="date">Monday at 3:47 PM</div>
-            </div>
-            <div class="card-content p-2">
-                What a nice photo i took yesterday!
-            </div>
-            <div class="card-content">
-                <img src="/static/img/one.jpg" style="width: 100%">
-            </div>
-            <div class="card-content fg-gray p-2">
-                <span><small>Likes: </small>112</span>
-                <span><small>Comments: </small>43</span>
-            </div>
-            <div class="card-footer">
-                <button class="flat-button mif-thumbs-up mif-2x"></button>
-                <button class="flat-button mif-tag mif-2x"></button>
-                <button class="flat-button mif-share mif-2x"></button>
-            </div>
-        </div>
-      </div>
-
+          {% endfor %}
   </div>
 
   <div class="row">
