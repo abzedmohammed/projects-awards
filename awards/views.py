@@ -156,7 +156,7 @@ def post_project(request):
         else:
             return False
     
-    return render(request, 'add_image.html', {'form':ProjectForm,})
+    return render(request, 'new_post.html', {'form':ProjectForm,})
 
 
 # @login_required

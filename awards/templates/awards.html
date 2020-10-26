@@ -85,7 +85,7 @@
       <div class="description text-center">
         <h2><strong>{{ post.project_name }}</strong></h2>
         <h6 class="lead">Posted On <strong>{{ post.date| date }}</strong></h6>
-
+        <a href="{% url 'likePost' post.id %}"><i class="far fa-heart fa-3x" style="color: green;">  {{ post.like }}</i></a>
 
         <div style="width: 420px;text-align:left;" class="container">
           <div class="card">
@@ -235,7 +235,7 @@
       </div>
     </div>
   </div>
-
+<br>
   {% for items in comments %}
 
   <div class="media">
