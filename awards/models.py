@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 from phone_field import PhoneField
 from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 import uuid
 
 def user_directory_path(instance, filename):
@@ -85,25 +86,72 @@ class Project(models.Model):
         ratings = Rating.objects.filter(project=self)
         return len(ratings)
     
-    def average_ratings(self):
-        sum = 0
-        ratings = Rating.objects.filter(project=self)
+    def ave_des(self):
+        rate = Rating.objects.filter(project=self)
+        ret = rate.aggregate(Avg('design'))
+        design = ret['design__avg']
+        return design
+    
+    def ave_use(self):
+        rate = Rating.objects.filter(project=self)
+        ret = rate.aggregate(Avg('usability'))
+        usability = ret['usability__avg']
+        return usability
+    
+    def ave_cont(self):
+        rate = Rating.objects.filter(project=self)
+        ret = rate.aggregate(Avg('content')) 
+        content = ret['content__avg']
+        return content
+    
+    def all_ave(self):
+        total = 0
+        a = Rating.objects.filter(project=self)
+        ave = [a.aggregate(Avg('design'))['design__avg'], a.aggregate(Avg('usability'))['usability__avg'], a.aggregate(Avg('content'))['content__avg']]
         
-        for rating in ratings:
-            sum += rating.design + rating.usability + rating.content
+        for items in ave:
+            total = total + items
+                    
+        return total / len(ave)
             
-        if len(ratings) > 0 :
-            return sum / len(ratings)
         
-        else:
-            return 0        
+    
+    # def average_ratings(self):
+    #     sum = 0
+    #     ratings = Rating.objects.filter(project=self)
+        
+    #     for rating in ratings:
+    #         sum += rating.design + rating.usability + rating.content
+    #         return sum
+            
+    #     # if len(ratings) > 0 :
+    #     #     return sum / len(ratings)
+        
+    #     # else:
+    #     #     return 0        
         
 class Rating(models.Model):
     design = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     usability = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     content = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='post_ratings')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='rater_profile')
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='rater_profile')
+    
+    def __str__(self):
+        return self.project.project_name
+    
+    def design_rate(self):
+        design = (self.design * 10)
+        return design
+    
+    def usability_rate(self):
+        usability = (self.usability * 10)
+        return usability
+    
+    def content_rate(self):
+        content = (self.content * 10)
+        return content
+            
     
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')

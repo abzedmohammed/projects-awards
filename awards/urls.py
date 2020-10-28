@@ -14,6 +14,7 @@ urlpatterns=[
     path('add_new_project/', views.post_project, name='addProject'),
     path('<uuid:post_id>', views.single_project, name='singleProject'),
     path('<uuid:post_id>/like', views.like, name='likePost'),
+    # path('<uuid:post_id>/rate', views.rating, name='ratePost'),
     path('profile/<username>', views.profile, name='profile'),
     path('profile/<username>/edit', views.profile_edit, name='editProfile'),
     path('profile/<username>/follow/<option>', views.follow, name='follow'),

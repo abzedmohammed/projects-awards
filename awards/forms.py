@@ -33,3 +33,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ['project','profile']
+        
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        exclude = ['project','profile']

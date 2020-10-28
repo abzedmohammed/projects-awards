@@ -1,6 +1,7 @@
 {%include 'base.html'%}
 {% load static %}
 {% load cloudinary %}
+{% load bootstrap4 %}
 
 
 {% block styles %}
@@ -24,15 +25,15 @@
             
         <div class="circle mt-5">
             <div class="box">
-                <div class="chart" data-percent="73" data-scale-color="#ffb400">8.5</div>
+                <div class="chart" data-percent="100" data-scale-color="#ffb400">{{ first.ave_des|floatformat:1 }}</div>
                 <h3>Design</h3>
             </div>
             <div class="box">
-                <div class="chart" data-percent="40" data-scale-color="#ffb400">4.3</div>
+                <div class="chart" data-percent="100" data-scale-color="#ffb400">{{ first.ave_use|floatformat:1 }}</div>
                 <h3>Usability</h3>
             </div>
             <div class="box">
-                <div class="chart" data-percent="90" data-scale-color="#ffb400">9.0</div>
+                <div class="chart" data-percent="100" data-scale-color="#ffb400">{{ first.ave_cont|floatformat:1 }}</div>
                 <h3>Content</h3>
             </div>
         </div> 
@@ -77,11 +78,13 @@
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'likePost' items.id %}" class="flat-button mif-thumbs-up mif-3x">Like</a>
-                    <a href="{% url 'singleProject' items.id %}" class="flat-button mif-comment mif-3x">Reviews</a>
+                    <a class="flat-button mif-hour-glass mif-3x">Rate</a>
                 </div>
             </div>
           </div>
+        
           {% endfor %}
+
   </div>
 
   <div class="row">

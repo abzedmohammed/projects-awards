@@ -22,10 +22,30 @@ from django.contrib.sites.shortcuts import get_current_site
 def index(request):
     post = Project.objects.all()
     first = Project.objects.order_by('?').first()
+    form = RatingForm(request.POST)
     # second = next_in_order(first)
     # prev_in_order(second) == first # True
     # last = prev_in_order(first, loop=True)
-    return render(request, 'index.html', {'post':post, 'first':first})
+            
+    return render(request, 'index.html', {'post':post, 'first':first, 'form':form})
+
+# def rating(request, post_id):
+#     post = get_object_or_404(Project, id=post_id)
+#     user = request.user
+#     profile = get_object_or_404(Profile, user=user)
+    
+#     if request.method == "POST":
+#         form = RatingForm(request.POST)
+#         if form.is_valid():
+#             data = form.save(commit=False)
+#             data.project = post
+#             data.profile = profile
+#             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#         else:
+#             form = RatingForm()
+            
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
 
 @login_required
 def single_project(request,post_id):
@@ -34,18 +54,23 @@ def single_project(request,post_id):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
     comments = Comment.objects.filter(project=post).order_by('-date')
+    rating = Rating.objects.filter(project=post)
+    if_rate = Rating.objects.filter(project=post).exists()
     
-    # if request.method == "POST":
-    #     form = CommentForm(request.POST)
-    #     if form.is_valid():
-    #         data = form.save(commit=False)
-    #         data.user = user
-    #         data.project = post
-    #         data.save()
-    #         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
-    #         #return redirect('singlePost')
-    #     else:
-    #         form = CommentForm()
+    try:        
+        if request.method == "POST":
+            form_rate = RatingForm(request.POST)
+            if form_rate.is_valid():
+                data = form_rate.save(commit=False)
+                data.project = post
+                data.profile = profile
+                data.save()
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                form = RatingForm()
+    except ValueError:
+        raise Http404()
+                
     
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -60,7 +85,8 @@ def single_project(request,post_id):
             form = CommentForm()
     
     return render(request, 'awards.html', {'post':post, 'form':CommentForm, 'comments':comments, 
-                                           'profile':profile}) 
+                                           'profile':profile, 'form_rate':RatingForm, 'rating':rating,
+                                            'if_rate':if_rate}) 
 @login_required
 def like(request,post_id):
     user = request.user
