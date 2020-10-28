@@ -30,8 +30,8 @@
         <h5><a class="nav-link white-text" href="/signup"><i class="fas fa-user-plus">  Register</i></a></h5>
       </li>
       {% endif %}
-    <form class="form-inline">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    <form action="{% url 'search' %}" class="form-inline">
+        <input class="form-control" type="text" placeholder="Search Projects" name="project">
         <button class="btn btn-outline-dark btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
       </form>
   </ul>

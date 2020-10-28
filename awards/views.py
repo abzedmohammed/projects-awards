@@ -192,19 +192,19 @@ def post_project(request):
     return render(request, 'new_post.html', {'form':ProjectForm, 'form_s':ScreenshotForm})
 
 
-# @login_required
-# def search_results(request):
+@login_required
+def search_results(request):
     
-#     if "users" in request.GET and request.GET["users"]:
-#         search_term = request.GET.get("users")
-#         searched_accounts = Post.search_user(search_term)
-#         message = f"{search_term}"
+    if "project" in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_projects = Project.search_projects(search_term)
+        message = f"{search_term}"
 
-#         return render(request, 'search.html',{"message":message,"users": searched_accounts})
+        return render(request, 'search.html',{"message":message, "post":searched_projects})
 
-#     else:
-#         message = "You haven't searched for any user"
-#         return render(request, 'search.html',{"message":message})
+    else:
+        message = "You haven't searched for any user"
+        return render(request, 'search.html',{"message":message})
 
 def signup(request):
     if request.method == 'POST':

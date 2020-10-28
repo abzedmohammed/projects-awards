@@ -76,7 +76,7 @@ class Project(models.Model):
         
     @classmethod
     def search_projects(cls,search_term):
-        posts = Project.objects.filter(project_name__name__icontains=search_term)
+        posts = Project.objects.filter(project_name__icontains=search_term)
         return posts
         
     def delete_image(self):
