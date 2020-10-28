@@ -102,10 +102,11 @@
         <div class="col-md-6 mb-4">
   
           <!-- Form -->
-          <form class="form-inline">
-            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+          <form action="{% url 'search' %}" class="form-inline">
+            <input class="form-control form-control-sm mr-3 w-75" name="project" type="text" placeholder="Search"
               aria-label="Search">
-            <i class="fas fa-search" aria-hidden="true"></i>
+              <button type="submit" class="btn btn-sm"><i class="fas fa-search" aria-hidden="true"></i></button>
+           
           </form>
           <!-- Form -->
   

@@ -203,7 +203,7 @@ def search_results(request):
         return render(request, 'search.html',{"message":message, "post":searched_projects})
 
     else:
-        message = "You haven't searched for any user"
+        message = "You haven't searched for any project"
         return render(request, 'search.html',{"message":message})
 
 def signup(request):
