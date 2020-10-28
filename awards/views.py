@@ -34,7 +34,6 @@ class Projects(APIView):
         serializers = ProjectSerializer(project, many=True)
         return Response(serializers.data)
 
-@login_required
 def index(request):
     post = Project.objects.all()
     first = Project.objects.order_by('?').first()
@@ -71,7 +70,7 @@ def single_project(request,post_id):
     profile = get_object_or_404(Profile, user=user)
     comments = Comment.objects.filter(project=post).order_by('-date')
     rating = Rating.objects.filter(project=post)
-    if_rate = Rating.objects.filter(project=post).exists()
+    if_rate = Rating.objects.filter(profile=profile).exists()
     
     try:        
         if request.method == "POST":
@@ -208,7 +207,6 @@ def post_project(request):
     return render(request, 'new_post.html', {'form':ProjectForm, 'form_s':ScreenshotForm})
 
 
-@login_required
 def search_results(request):
     
     if "project" in request.GET and request.GET["project"]:

@@ -14,7 +14,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'job_title', 'location', 'bio', 'avatar', 'projects')
+        fields = ('id', 'user', 'job_title', 'location', 'bio', 'avatar', 'projects','whatsapp', 
+                  'linkedin', 'github')
         
     def get_projects(self, username):
         user = get_object_or_404(User, username=username)
