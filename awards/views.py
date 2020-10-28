@@ -16,7 +16,23 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
-# from next_prev import next_in_order, prev_in_order
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import *
+from rest_framework import status
+
+class UserProfiles(APIView):
+    def get(self, request, format=None):
+        profile = Profile.objects.all().order_by('id')
+        serializers = ProfileSerializer(profile, many=True)
+        return Response(serializers.data)
+    
+class Projects(APIView):
+    def get(self, request, format=None):
+        project = Project.objects.all().order_by('-date')
+        serializers = ProjectSerializer(project, many=True)
+        return Response(serializers.data)
 
 @login_required
 def index(request):

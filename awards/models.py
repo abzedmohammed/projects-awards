@@ -8,6 +8,7 @@ from phone_field import PhoneField
 from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Avg
+from django.shortcuts import get_object_or_404
 import uuid
 
 def user_directory_path(instance, filename):
@@ -35,6 +36,10 @@ class Profile(models.Model):
         
     def delete_image(self):
         self.delete()
+        
+    def get_projects(self, username):
+        user = get_object_or_404(User, username=username)
+        return Project.objects.filter(user=user).count()
     
     @classmethod
     def update(cls, id, value):

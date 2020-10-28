@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('awards.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('django_registration.backends.one_step.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
