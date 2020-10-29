@@ -1,8 +1,6 @@
 {%include 'base.html'%}
 {% load static %}
 {% load cloudinary %}
-{% load bootstrap4 %}
-
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">  
@@ -53,13 +51,19 @@
       <div class="row">
           {% for items in post %}
             
-          <div class="col-md-4 col-sm-4 col-lg-4">
+          <div class="col-12 col-sm-6 col-lg-4">
             <div class="card">
                 <div class="card-header">
                     <div class="avatar">
-                        <img src="{{ items.profile.avatar.url }}">
+                      
+                      {% if items.profile.avatar %}
+                      <img src="{{ items.profile.avatar.url }}">
+                      {% else %}
+                      <img src="/static/img/code.jpg">
+                      {% endif %}
+                        
                     </div>
-                    <div class="name lead">{{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</div>
+                    <div class="name lead"><a href="{% url 'profile' items.profile.user.username %}">{{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</a></div>
                     <!-- <div class="date">@{{ items.profile.user.username }}</div> -->
                     <div class="date lead">{{ items.date| date }}</div>
                 </div>

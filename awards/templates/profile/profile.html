@@ -62,20 +62,7 @@
                     
             </div>
         </div>
-        <div class="skills">
-            <h4 style="text-decoration: underline;">Skills</h4>
-            
-            {% if profile.skills.all %}
-            <ul class="lead">
-                {% for tag in profile.skills.all %}
-                <li>{{ tag }}</li>
-                {% endfor %}                
-            </ul>
-            {% else %}
-            <p class="lead">Please add your skills...</p>
-            {% endif %}
-                
-        </div>
+       
         <div class="buttons">
             {% if request.user == profile.user %}
             <a href="{% url 'editProfile' profile.user %}" class="btn primary">

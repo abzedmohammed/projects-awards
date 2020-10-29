@@ -26,7 +26,7 @@ class Profile(models.Model):
     linkedin = models.URLField(max_length=250, null=True, blank=True)
     twitter = models.URLField(max_length=250, null=True, blank=True)
     github = models.URLField(max_length=250, null=True, blank=True)
-    skills = TaggableManager(blank=True)
+    # skills = TaggableManager(blank=True)
     
     def __str__(self):
         return self.user.username
@@ -52,16 +52,16 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
     
 class Screenshot(models.Model):
-    image_1 = models.FileField(upload_to='images/', verbose_name='Image')  
-    image_2 = models.FileField(upload_to='image_2/', verbose_name='Second Image')  
-    image_3 = models.FileField(upload_to='image_3/', verbose_name='Third Image')  
+    image_1 = CloudinaryField('image')  
+    image_2 = CloudinaryField('image')
+    image_3 = CloudinaryField('image') 
     # def __str__(self):
     #     return self.image_1
     
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_user')
-    image = models.ImageField(upload_to=user_directory_path, verbose_name='Main Image', null=True)
+    image = CloudinaryField('image')
     screenshots = models.ForeignKey(Screenshot, on_delete=models.CASCADE, related_name='project_images')
     project_name = models.CharField(max_length=120, null=True)
     description = models.TextField(max_length=1000, verbose_name='project Description', null=True)
@@ -140,7 +140,7 @@ class Rating(models.Model):
     usability = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     content = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='post_ratings')
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='rater_profile')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='rater_profile')
     
     def __str__(self):
         return self.project.project_name
