@@ -139,7 +139,7 @@
               {% if post.profile.avatar.url %}
               <img src="{{ post.profile.avatar.url }}" class="float-left rounded-circle img-fluid">
               {% else %}
-              <img src="/static/img/code.jpg" class="float-left rounded-circle img-fluid">
+              <img src="/static/img/default.png" class="float-left rounded-circle img-fluid">
               {% endif %}
                 
               <div class="message">
@@ -182,7 +182,7 @@
               {% if items.profile.avatar.url %}
               <img src="{{ items.profile.avatar.url }}" class="float-left rounded-circle img-fluid">
               {% else %}
-              <img src="/static/img/code.jpg" class="float-left rounded-circle img-fluid">
+              <img src="/static/img/default.png" class="float-left rounded-circle img-fluid">
               {% endif %}
               <div class="message">
                 <h5 class="">{{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</h5>
@@ -264,7 +264,7 @@
     {% if items.profile.avatar.url %}
     <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="{{ items.profile.avatar.url }}"  alt="Avatar">
       {% else %}
-      <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/code.jpg" alt="Avatar">
+      <img class="d-flex img-fluid rounded-circle avatar z-depth-1-half mr-3" src="/static/img/default.png" alt="Avatar">
       {% endif %}
 
     <div class="media-body">
@@ -335,54 +335,9 @@
 <br>
 <!-- Footer -->
 <footer class="page-footer font-small aqua-gradient pt-4">
-
-    <!-- Footer Elements -->
-    <div class="container">
-  
-      <!--Grid row-->
-      <div class="row">
-  
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-  
-          <!-- Form -->
-          <form class="form-inline">
-            <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-              aria-label="Search">
-            <i class="fas fa-search" aria-hidden="true"></i>
-          </form>
-          <!-- Form -->
-  
-        </div>
-        <!--Grid column-->
-  
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-  
-          <form class="input-group">
-            <input type="text" class="form-control form-control-sm" placeholder="Your email"
-              aria-label="Your email" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-sm btn-outline-dark my-0" type="button">Subscribe</button>
-            </div>hide
-          </form>
-  
-        </div>
-        <!--Grid column-->
-  
-      </div>
-      <!--Grid row-->
-  
-    </div>
-    <!-- Footer Elements -->
-  
-    <!-- Copyright -->
-    <div class="footer-copyright text-center text-dark py-3">© 2020 Copyright:
-      <a class="text-dark" href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-  
-  </footer>
+  <div class="footer-copyright text-center text-dark py-3">Copyright (c) 2020 Abzed Abdul Mohammed</a>
+  </div>  
+</footer>
   <!-- Footer -->
   <!-- Jumbotron -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

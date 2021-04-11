@@ -15,7 +15,7 @@
         {% if profile.avatar %}
         <img class="round img-fluid rounded-circle" src="{{ profile.avatar.url }}" alt="userpic" />
         {% else %}
-        <img class="round img-fluid rounded-circle" src="/static/img/code.jpg" alt="userpic" />
+        <img class="round img-fluid rounded-circle" src="/static/img/default.png" alt="userpic" />
         {% endif %}
 
         <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
@@ -99,17 +99,7 @@
                   </a>          
               </div>
               <div class="card-content p-2">
-                  <span>Likes: {{ items.like }}</span>
-              </div>
-              <div class="card-footer">
-                  
-                  {% if okay == 'False' %}
-                  <a href="{% url 'likePost' items.id %}" style="color: green;" class="flat-button mif-thumbs-up mif-2x"></a>
-                  {% else %}
-                  <a href="{% url 'likePost' items.id %}" style="color: blue;" class="flat-button mif-thumbs-up mif-2x"></a>
-                  {% endif %}
-
-                  <button class="flat-button mif-share mif-2x"></button>
+                <a href="{% url 'likePost' items.id %}" style="color: black;" class="fas fa-heart fa-2x"> {{ items.like }}</a>
               </div>
           </div>
         </div>
@@ -128,5 +118,8 @@
 {% endif %}
 
 </div>
+
+<br>
+
   
 {% endblock  %}
