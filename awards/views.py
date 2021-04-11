@@ -76,6 +76,9 @@ def single_project(request,post_id):
         if request.method == "POST":
             form_rate = RatingForm(request.POST)
             if form_rate.is_valid():
+                design = form_rate.cleaned_data.get("design")
+                usability = form_rate.cleaned_data.get("usability")
+                content = form_rate.cleaned_data.get("content")
                 data = form_rate.save(commit=False)
                 data.project = post
                 data.profile = profile
@@ -237,8 +240,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 def signin(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get('username')
+    password = request.POST.get('password')
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)

@@ -12,7 +12,8 @@
 
 {% block content %} 
 
-<div class="container-fluid">
+<div class="container">
+  
     <div class="row">
 
         <!-- Grid column -->
@@ -30,6 +31,7 @@
       <div class="row">
       
         <!-- Grid column -->
+        
         <div class="col-lg-4 col-md-12 mb-3 first">
       
           <img src="{{ post.screenshots.image_1.url }}" class="img-fluid z-depth-1"
@@ -105,9 +107,19 @@
             <h2>Overal Score</h2>
 
             <div class="text-center">
-            
-            <a data-toggle="modal" data-target="#orangeModalSubscription" class="btn btn-outline-success">Rate Project</a>              
+              
+              {% if if_rate == True %}
+
+              <div class="bg-success">
+                <h4 id="rated">You Have Rated This Project!</h4>
+              </div>
                 
+              {% else %}              
+
+              <a data-toggle="modal" data-target="#orangeModalSubscription" class="btn btn-outline-success">Rate Project</a>              
+
+              {% endif %}
+                            
             </div>
         </div>
       </div>
@@ -176,7 +188,7 @@
                 <h5 class="">{{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</h5>
                 <h6 class="text-muted">@{{ items.profile.user.username }}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">{{ items.profile.job_title }} <span style="font-weight: normal;" class="text-muted"><i>from</i> <strong>{{ items.profile.location }}...</strong></span></h6>
-                <ul style="display: none;" id="{{items.profile.id}}" class="skills">
+                <ul id="{{items.profile.id}}" class="skills">
                     <li>
                         <span>Design</span>
                         <span class="float-right">{{ items.design }}</span>
@@ -194,7 +206,7 @@
                     </li>
                     
                 </ul>
-                <button class="btn btn-outline-default btn-sm {{items.profile.id}}" id="user">View User Ratings</button>
+                <button class="btn btn-outline-default btn-sm {{items.profile.id}}" id="user">Toggle Ratings</button>
               </div>
             </div>
           </div>
@@ -281,9 +293,34 @@
       <div class="modal-body">
         <div class="md-form mb-1">
           <form class="form-group" method="POST"> 
-                {% csrf_token %} 
-                {{ backend_form }}
-                {% bootstrap_form form_rate %} 
+                {% csrf_token %}
+                <div class="d-flex justify-content-center my-4">
+                  <div class="w-75">
+                    <input type="range" class="custom-range" id="customRange1" name="design" min="0" max="10">
+                    <label class="form-label" for="customRange1">Design</label>
+                
+                  </div>
+                  <span class="font-weight-bold text-primary ml-2 valueSpan1"></span>
+                </div>
+                
+                <div class="d-flex justify-content-center my-4">
+                  <div class="w-75">
+                    <input type="range" class="custom-range" id="customRange2" name="usability" min="0" max="10">
+                    <label class="form-label" for="customRange2">Usability</label>
+                
+                  </div>
+                  <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+                </div>
+
+                <div class="d-flex justify-content-center my-4">
+                  <div class="w-75">
+                    <input type="range" class="custom-range" id="customRange3" name="content" min="0" max="10">
+                    <label class="form-label" for="customRange3">Content</label>
+                
+                  </div>
+                  <span class="font-weight-bold text-primary ml-2 valueSpan3"></span>
+                </div>
+ 
                 <button type="submit" class="btn btn-outline-warning waves-effect">Submit </button>
               </form>
         </div>        
@@ -293,6 +330,7 @@
     <!--/.Content-->
   </div>
 </div>
+
 </div>
 <br>
 <!-- Footer -->
@@ -357,13 +395,37 @@
     });
 
     $(document).ready(function(){
-        $('#').click(function(){
-            $('#').toggle();
+        $('').click(function(){
+            $('').toggle();
         });
 
         $("#reviews").click(function(){
           var elmnt = document.getElementById("user_reviews");
           elmnt.scrollIntoView();
+        });
+
+        const $valueSpan = $('.valueSpan1');
+        const $value = $('#customRange1');
+        $valueSpan.html($value.val());
+        $value.on('input change', () => {
+      
+          $valueSpan.html($value.val());
+        });  
+        
+        const $valueSpan1 = $('.valueSpan2');
+        const $value1 = $('#customRange2');
+        $valueSpan1.html($value1.val());
+        $value1.on('input change', () => {
+      
+          $valueSpan1.html($value1.val());
+        });  
+
+        const $valueSpan3 = $('.valueSpan3');
+        const $value3 = $('#customRange3');
+        $valueSpan3.html($value3.val());
+        $value3.on('input change', () => {
+      
+          $valueSpan3.html($value3.val());
         });
     });
 </script>
