@@ -20,7 +20,7 @@ class Profile(models.Model):
     job_title = models.CharField(max_length=150, null=True, blank=True)
     location = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(max_length=120, null=True)
-    avatar = CloudinaryField('image')
+    avatar = CloudinaryField('image', folder='awards')
     whatsapp = PhoneField(blank=True, null=True)
     facebook = models.URLField(max_length=250, null=True, blank=True)
     linkedin = models.URLField(max_length=250, null=True, blank=True)
@@ -52,16 +52,16 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
     
 class Screenshot(models.Model):
-    image_1 = CloudinaryField('image')  
-    image_2 = CloudinaryField('image')
-    image_3 = CloudinaryField('image') 
+    image_1 = CloudinaryField('image', folder='awards')  
+    image_2 = CloudinaryField('image', folder='awards')
+    image_3 = CloudinaryField('image', folder='awards') 
     # def __str__(self):
     #     return self.image_1
     
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_user')
-    image = CloudinaryField('image')
+    image = CloudinaryField('image', folder='awards')
     screenshots = models.ForeignKey(Screenshot, on_delete=models.CASCADE, related_name='project_images')
     project_name = models.CharField(max_length=120, null=True)
     description = models.TextField(max_length=1000, verbose_name='project Description', null=True)
